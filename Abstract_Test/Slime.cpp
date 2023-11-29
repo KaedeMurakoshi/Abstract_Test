@@ -3,6 +3,11 @@
 
 using namespace std;
 
+Slime::Slime(int hp, int atk) : Enemy(hp, atk)
+{
+
+}
+
 void Slime::Attack(Enemy& enemy)
 {
 	enemy.Damage(1);

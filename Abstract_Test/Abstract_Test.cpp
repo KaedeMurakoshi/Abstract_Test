@@ -6,42 +6,58 @@
 #include "Enemy.h"
 #include "Goblin.h"
 #include "Slime.h"
+#include "SlimeKnight.h"
 
 using namespace std;
 
-int main()
+bool isDead(Enemy& enemy)
 {
-    Goblin gA;
-    /*Goblin gB;
-    Goblin gC;
-    Goblin gD;*/
-
-    Slime sA;
-
-    //Enemy* EnemyList[] =
-    //{
-    //    &gA, &gB, &gC, &gD
-    //};
-
-    //// スライムAがゴブリンA～Dに全体攻撃
-    //for (int i = 0; i < 4; ++i)
-    //{
-    //    sA.Attack(*EnemyList[i]);   // 参照渡しなので実体を渡す
-    //}
-    int a;
-    void* enemy = &gA;
-    enemy = &a;
-    gA.Play(sA);
-    sA.Play(gA);
+    // HPが０ならfalseを返す
+    return enemy.GetHp() <= 0;
 }
 
-// プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
-// プログラムのデバッグ: F5 または [デバッグ] > [デバッグの開始] メニュー
+void ShowStatus(Enemy& p1, Enemy& p2)
+{
+    printf("【スライムナイト】【ゴブちゃん】\n　    HP:%3d          HP:%3d\n\n", p1.GetHp(), p2.GetHp());
+}
 
-// 作業を開始するためのヒント: 
-//    1. ソリューション エクスプローラー ウィンドウを使用してファイルを追加/管理します 
-//   2. チーム エクスプローラー ウィンドウを使用してソース管理に接続します
-//   3. 出力ウィンドウを使用して、ビルド出力とその他のメッセージを表示します
-//   4. エラー一覧ウィンドウを使用してエラーを表示します
-//   5. [プロジェクト] > [新しい項目の追加] と移動して新しいコード ファイルを作成するか、[プロジェクト] > [既存の項目の追加] と移動して既存のコード ファイルをプロジェクトに追加します
-//   6. 後ほどこのプロジェクトを再び開く場合、[ファイル] > [開く] > [プロジェクト] と移動して .sln ファイルを選択します
+int main()
+{
+    srand(time(NULL));
+
+    Goblin gob(40, 4);
+    SlimeKnight sKnight(35, 5);
+
+    while (true)
+    {
+        // スライムナイトのターン
+        sKnight.Play(gob);
+        ShowStatus(sKnight, gob);
+        if (isDead(gob)) 
+        {
+            printf("勝者・・・スライムナイト！\n");
+            break;
+        }
+
+        // ゴブリンのターン
+        gob.Play(sKnight);
+        ShowStatus(sKnight, gob);
+        if (isDead(gob)) 
+        { 
+            printf("勝者・・・ゴブちゃん！\n"); 
+            break; 
+        }
+    }
+}
+
+// まとめて処理したい場合
+//Enemy* EnemyList[] =
+//{
+//    &gA, &gB, &gC, &gD
+//};
+
+//// スライムAがゴブリンA～Dに全体攻撃
+//for (int i = 0; i < 4; ++i)
+//{
+//    sA.Attack(*EnemyList[i]);   // 参照渡しなので実体を渡す
+//}

@@ -25,9 +25,9 @@ int main()
 {
     srand(time(NULL));
 
-    Goblin gob(40, 4);
-    SlimeKnight sKnight(35, 5);
-
+    Goblin gob(80, 6);
+    SlimeKnight sKnight(70, 8);
+    ShowStatus(sKnight, gob);
     while (true)
     {
         // スライムナイトのターン

@@ -10,7 +10,7 @@ Goblin::Goblin(int hp, int atk) : Enemy(hp, atk)
 
 void Goblin::Attack(Enemy& enemy)
 {
-	enemy.Damage(3);
+	enemy.Damage(GetAtk());
 }
 
 void Goblin::PlayBase(Enemy& enemy)
@@ -25,6 +25,12 @@ void Goblin::PlayBase(Enemy& enemy)
 			printf("痛恨の一撃！\n");
 			printf("%dのダメージ\n\n", GetAtk() * 2);
 			enemy.Damage(GetAtk());
+			enemy.Damage(GetAtk());
+		}
+		else
+		{
+			printf("ゴブリンの攻撃！\n");
+			printf("%dのダメージ\n\n", GetAtk());
 			enemy.Damage(GetAtk());
 		}
 	}
